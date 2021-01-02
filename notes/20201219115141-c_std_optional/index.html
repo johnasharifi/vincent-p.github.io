@@ -6,6 +6,8 @@
 <meta name="description" content="my blog">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://vincent-p.github.io/css/minimal.css">
+<link rel="stylesheet" href="https://vincent-p.github.io/css/syntax.css">
+<link rel="stylesheet" href="https://vincent-p.github.io/css/custom.css">
 <link rel="canonical" href="https://vincent-p.github.io/notes/20201219115141-c_std_optional/">
 <link rel="alternate" type="application/rss+xml" href="" title="Super blog">
 <script>
@@ -60,12 +62,12 @@
 </dl>
 <p>Basically a ripoff of Rust&rsquo;s <code>std::option</code>.</p>
 <p>One thing to keep in mind when using <code>std::optional</code> is that it doesn&rsquo;t have the same semantics as pointers, this code is perfectly fine:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">auto</span> garbage <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>nullopt;
-<span style="color:#66d9ef">auto</span> even_more_garbage <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>garbage;
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">auto</span> <span class="n">garbage</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">;</span>
+<span class="k">auto</span> <span class="n">even_more_garbage</span> <span class="o">=</span> <span class="o">*</span><span class="n">garbage</span><span class="p">;</span>
 </code></pre></div><p>It doesn&rsquo;t throw any exception and will silently fails.
 The equivalent to Rust&rsquo;s <code>unwrap()</code> is <code>value()</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">auto</span> garbage <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>nullopt;
-<span style="color:#66d9ef">auto</span> not_garbage <span style="color:#f92672">=</span> garbage.value(); <span style="color:#75715e">// &lt;-- Will throw a std::bad_optional_access exception!
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">auto</span> <span class="n">garbage</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">;</span>
+<span class="k">auto</span> <span class="n">not_garbage</span> <span class="o">=</span> <span class="n">garbage</span><span class="p">.</span><span class="n">value</span><span class="p">();</span> <span class="c1">// &lt;-- Will throw a std::bad_optional_access exception!
 </span></code></pre></div>
 </article>
 

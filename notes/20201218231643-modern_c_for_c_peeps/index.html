@@ -6,6 +6,8 @@
 <meta name="description" content="my blog">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://vincent-p.github.io/css/minimal.css">
+<link rel="stylesheet" href="https://vincent-p.github.io/css/syntax.css">
+<link rel="stylesheet" href="https://vincent-p.github.io/css/custom.css">
 <link rel="canonical" href="https://vincent-p.github.io/notes/20201218231643-modern_c_for_c_peeps/">
 <link rel="alternate" type="application/rss+xml" href="" title="Super blog">
 <script>
@@ -61,28 +63,28 @@
 <dd><a href="/notes/20201218231726-cpp/">cpp</a></dd>
 </dl>
 <p>What you see in a lot of C code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
-    <span style="color:#66d9ef">int</span> a, b, c;
-} bla_t;
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">bla_t</span><span class="p">;</span>
 
-bla_t bla <span style="color:#f92672">=</span> ...;
+<span class="n">bla_t</span> <span class="n">bla</span> <span class="o">=</span> <span class="p">...;</span>
 </code></pre></div><p>But when you want to forwards declare such struct:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// forward-declaring bla_t and a function using bla_t:
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> bla_t;
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">func</span>(<span style="color:#66d9ef">struct</span> bla_t bla);
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// forward-declaring bla_t and a function using bla_t:
+</span><span class="c1"></span><span class="k">struct</span> <span class="n">bla_t</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">func</span><span class="p">(</span><span class="k">struct</span> <span class="n">bla_t</span> <span class="n">bla</span><span class="p">);</span>
 
-<span style="color:#75715e">// actual struct and function, using the typedef:
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
-    <span style="color:#66d9ef">int</span> a, b, c;
-} bla_t;
+<span class="c1">// actual struct and function, using the typedef:
+</span><span class="c1"></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">bla_t</span><span class="p">;</span>
 
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">func</span>(bla_t bla) { <span style="color:#75715e">// &lt;= warning &#39;parameter different from declaration&#39;
-</span><span style="color:#75715e"></span>    ...
-}
+<span class="kt">void</span> <span class="nf">func</span><span class="p">(</span><span class="n">bla_t</span> <span class="n">bla</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// &lt;= warning &#39;parameter different from declaration&#39;
+</span><span class="c1"></span>    <span class="p">...</span>
+<span class="p">}</span>
 </code></pre></div><p>That&rsquo;s why the <strong>only</strong> real way to declare struct in C is:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> bla_t {
-    <span style="color:#66d9ef">int</span> a, b, c;
-} bla_t;
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">bla_t</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">bla_t</span><span class="p">;</span>
 </code></pre></div>
 </article>
 

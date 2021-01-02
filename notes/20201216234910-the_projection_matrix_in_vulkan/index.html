@@ -6,6 +6,8 @@
 <meta name="description" content="my blog">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://vincent-p.github.io/css/minimal.css">
+<link rel="stylesheet" href="https://vincent-p.github.io/css/syntax.css">
+<link rel="stylesheet" href="https://vincent-p.github.io/css/custom.css">
 <link rel="canonical" href="https://vincent-p.github.io/notes/20201216234910-the_projection_matrix_in_vulkan/">
 <link rel="alternate" type="application/rss+xml" href="" title="Super blog">
 <script>
@@ -7751,34 +7753,34 @@ w_c
 \end{pmatrix}
 \end{aligned}</p>
 <p>Bonus: here is my c++ code for the perspective matrix:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">float4x4 <span style="color:#a6e22e">perspective</span>(<span style="color:#66d9ef">float</span> fov, <span style="color:#66d9ef">float</span> aspect_ratio, <span style="color:#66d9ef">float</span> n, <span style="color:#66d9ef">float</span> f, float4x4 <span style="color:#f92672">*</span>inverse)
-{
-    <span style="color:#66d9ef">float</span> focal_length <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0f</span> <span style="color:#f92672">/</span> std<span style="color:#f92672">::</span>tan(to_radians(fov) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2.0f</span>);
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">float4x4</span> <span class="nf">perspective</span><span class="p">(</span><span class="kt">float</span> <span class="n">fov</span><span class="p">,</span> <span class="kt">float</span> <span class="n">aspect_ratio</span><span class="p">,</span> <span class="kt">float</span> <span class="n">n</span><span class="p">,</span> <span class="kt">float</span> <span class="n">f</span><span class="p">,</span> <span class="n">float4x4</span> <span class="o">*</span><span class="n">inverse</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">focal_length</span> <span class="o">=</span> <span class="mf">1.0f</span> <span class="o">/</span> <span class="n">std</span><span class="o">::</span><span class="n">tan</span><span class="p">(</span><span class="n">to_radians</span><span class="p">(</span><span class="n">fov</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0f</span><span class="p">);</span>
 
-    <span style="color:#66d9ef">float</span> x  <span style="color:#f92672">=</span>  focal_length <span style="color:#f92672">/</span> aspect_ratio;
-    <span style="color:#66d9ef">float</span> y  <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>focal_length;
-    <span style="color:#66d9ef">float</span> A  <span style="color:#f92672">=</span> n <span style="color:#f92672">/</span> (f <span style="color:#f92672">-</span> n);
-    <span style="color:#66d9ef">float</span> B  <span style="color:#f92672">=</span> f <span style="color:#f92672">*</span> A;
+    <span class="kt">float</span> <span class="n">x</span>  <span class="o">=</span>  <span class="n">focal_length</span> <span class="o">/</span> <span class="n">aspect_ratio</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">y</span>  <span class="o">=</span> <span class="o">-</span><span class="n">focal_length</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">A</span>  <span class="o">=</span> <span class="n">n</span> <span class="o">/</span> <span class="p">(</span><span class="n">f</span> <span class="o">-</span> <span class="n">n</span><span class="p">);</span>
+    <span class="kt">float</span> <span class="n">B</span>  <span class="o">=</span> <span class="n">f</span> <span class="o">*</span> <span class="n">A</span><span class="p">;</span>
 
-    float4x4 projection({
-	x,    <span style="color:#ae81ff">0.0f</span>,  <span style="color:#ae81ff">0.0f</span>, <span style="color:#ae81ff">0.0f</span>,
-	<span style="color:#ae81ff">0.0f</span>,    y,  <span style="color:#ae81ff">0.0f</span>, <span style="color:#ae81ff">0.0f</span>,
-	<span style="color:#ae81ff">0.0f</span>, <span style="color:#ae81ff">0.0f</span>,     A,    B,
-	<span style="color:#ae81ff">0.0f</span>, <span style="color:#ae81ff">0.0f</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0f</span>, <span style="color:#ae81ff">0.0f</span>,
-    });
+    <span class="n">float4x4</span> <span class="n">projection</span><span class="p">({</span>
+        <span class="n">x</span><span class="p">,</span>    <span class="mf">0.0f</span><span class="p">,</span>  <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>
+        <span class="mf">0.0f</span><span class="p">,</span>    <span class="n">y</span><span class="p">,</span>  <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>
+        <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>     <span class="n">A</span><span class="p">,</span>    <span class="n">B</span><span class="p">,</span>
+        <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>
+    <span class="p">});</span>
 
-    <span style="color:#66d9ef">if</span> (inverse)
-    {
-	<span style="color:#f92672">*</span>inverse <span style="color:#f92672">=</span> float4x4({
-	    <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>x,  <span style="color:#ae81ff">0.0f</span>, <span style="color:#ae81ff">0.0f</span>,  <span style="color:#ae81ff">0.0f</span>,
-	    <span style="color:#ae81ff">0.0f</span>,  <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>y, <span style="color:#ae81ff">0.0f</span>,  <span style="color:#ae81ff">0.0f</span>,
-	    <span style="color:#ae81ff">0.0f</span>, <span style="color:#ae81ff">0.0f</span>, <span style="color:#ae81ff">0.0f</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0f</span>,
-	    <span style="color:#ae81ff">0.0f</span>, <span style="color:#ae81ff">0.0f</span>,  <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>B,   A<span style="color:#f92672">/</span>B,
-	});
-    }
+    <span class="k">if</span> <span class="p">(</span><span class="n">inverse</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="o">*</span><span class="n">inverse</span> <span class="o">=</span> <span class="n">float4x4</span><span class="p">({</span>
+            <span class="mi">1</span><span class="o">/</span><span class="n">x</span><span class="p">,</span>  <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>  <span class="mf">0.0f</span><span class="p">,</span>
+            <span class="mf">0.0f</span><span class="p">,</span>  <span class="mi">1</span><span class="o">/</span><span class="n">y</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>  <span class="mf">0.0f</span><span class="p">,</span>
+            <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0f</span><span class="p">,</span>
+            <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span>  <span class="mi">1</span><span class="o">/</span><span class="n">B</span><span class="p">,</span>   <span class="n">A</span><span class="o">/</span><span class="n">B</span><span class="p">,</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
 
-    <span style="color:#66d9ef">return</span> projection;
-}
+    <span class="k">return</span> <span class="n">projection</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
 </article>
 
