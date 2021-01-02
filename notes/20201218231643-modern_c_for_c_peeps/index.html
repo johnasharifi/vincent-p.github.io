@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<title>Modern C for C&#43;&#43; Peeps | Super blog</title>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.80.0" />
+<meta name="description" content="my blog">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://vincent-p.github.iocss/index.css">
+<link rel="canonical" href="https://vincent-p.github.io/notes/20201218231643-modern_c_for_c_peeps/">
+<link rel="alternate" type="application/rss+xml" href="" title="Super blog">
+<script>
+  MathJax = {
+      tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          processEnvironments: true
+      }
+  };
+</script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+
+<header>
+  
+    <a href="https://vincent-p.github.io">Super blog</a>
+  
+  
+    <nav>
+    
+      <a href="/notes/">Notes</a>
+    
+    </nav>
+  
+</header>
+
+
+<script>
+  MathJax = {
+      tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          processEnvironments: true
+      }
+  };
+</script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+
+
+<article>
+  <header>
+    <h1>Modern C for C&#43;&#43; Peeps</h1>
+    
+  </header>
+  <dl>
+<dt>link</dt>
+<dd><a href="https://floooh.github.io/2019/09/27/modern-c-for-cpp-peeps.html">https://floooh.github.io/2019/09/27/modern-c-for-cpp-peeps.html</a></dd>
+<dt>tags</dt>
+<dd><a href="/notes/20201218231726-cpp/">cpp</a></dd>
+</dl>
+<p>What you see in a lot of C code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#66d9ef">int</span> a, b, c;
+} bla_t;
+
+bla_t bla <span style="color:#f92672">=</span> ...;
+</code></pre></div><p>But when you want to forwards declare such struct:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// forward-declaring bla_t and a function using bla_t:
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> bla_t;
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">func</span>(<span style="color:#66d9ef">struct</span> bla_t bla);
+
+<span style="color:#75715e">// actual struct and function, using the typedef:
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#66d9ef">int</span> a, b, c;
+} bla_t;
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">func</span>(bla_t bla) { <span style="color:#75715e">// &lt;= warning &#39;parameter different from declaration&#39;
+</span><span style="color:#75715e"></span>    ...
+}
+</code></pre></div><p>That&rsquo;s why the <strong>only</strong> real way to declare struct in C is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> bla_t {
+    <span style="color:#66d9ef">int</span> a, b, c;
+} bla_t;
+</code></pre></div>
+</article>
+
+
+
+</html>
